@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "scheme": "reactnative",
     "userInterfaceStyle": "automatic",
-    // "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
@@ -14,7 +13,6 @@
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE"
       },
-      // "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
@@ -38,7 +36,9 @@
       "expo-font",
       "expo-image",
       "expo-status-bar",
-      "expo-web-browser"
+      "expo-web-browser",
+      "@clerk/expo",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
