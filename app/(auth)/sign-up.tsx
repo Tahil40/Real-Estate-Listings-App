@@ -3,14 +3,15 @@ import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import {
     ActivityIndicator,
+    Alert,
     Image,
-    SafeAreaView,
     ScrollView,
     Text,
     TextInput,
     TouchableOpacity,
     View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SignUpPage() {
   const [FirstName, SetFirstName] = useState("");
@@ -26,7 +27,47 @@ export default function SignUpPage() {
   // if fetchStatus is equals to fetching then it's in loading state....
   const isLoading = fetchStatus === "fetching";
 
-  const onSignUpPress = () => {};
+  // function to handle sign-up form....
+  const onSignUpPress = async () => {
+    const { error } = await signUp.password({
+      emailAddress: Email,
+      password: Password,
+      firstName: FirstName,
+      lastName: LastName,
+    });
+
+    if (error) {
+      console.error(JSON.stringify(error, null, 2));
+      Alert.alert("Submition Failed");
+      return;
+    }
+
+    if (!error) {
+      return await signUp.verifications.sendEmailCode();
+    }
+  };
+
+  // function to handle otp verification....
+  const verifyOTP = async () => {
+    await signUp.verifications.verifyEmailCode({ code: Code });
+
+    if (signUp.status === "complete") {
+      await signUp.finalize({
+        navigate: ({ session, decorateUrl }) => {
+          if (session?.currentTask) {
+            console.log(session.currentTask);
+            return;
+          }
+
+          const url = decorateUrl("/"); 
+          router.replace(url as any);
+        },
+      });
+    } else {
+      console.error("Sign-up attempt not complete:", signUp);
+      Alert.alert("Sign-up failed");
+    }
+  };
 
   return (
     <SafeAreaView className="bg-white h-full pb-[50%] pt-[30%]">
