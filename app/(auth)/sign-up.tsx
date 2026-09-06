@@ -1,6 +1,6 @@
 import { useAuth, useSignUp } from "@clerk/expo";
-import { Link, useRouter } from "expo-router";
-import { useState } from "react";
+import { Link, useRouter, type Href } from "expo-router";
+import { useEffect, useState } from "react";
 import {
     ActivityIndicator,
     Alert,
@@ -60,7 +60,7 @@ export default function SignUpPage() {
           }
 
           const url = decorateUrl("/");
-          router.replace(url as any);
+          router.replace(url as Href);
         },
       });
     } else {
@@ -70,9 +70,11 @@ export default function SignUpPage() {
   };
 
   // check if the user is already have account or signed-up....
-  if (signUp.status === "complete" || isSignedIn) {
-    return null;
-  }
+  useEffect(() => {
+    if (isSignedIn) {
+      router.replace("/");
+    }
+  }, [isSignedIn, router]);
 
   // OTP verification screen....
   if (
