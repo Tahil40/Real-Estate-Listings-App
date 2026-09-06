@@ -4,13 +4,13 @@ import { useState } from "react";
 import {
     ActivityIndicator,
     Image,
+    SafeAreaView,
     ScrollView,
     Text,
     TextInput,
     TouchableOpacity,
     View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SignUpPage() {
   const [FirstName, SetFirstName] = useState("");
@@ -26,14 +26,14 @@ export default function SignUpPage() {
   // if fetchStatus is equals to fetching then it's in loading state....
   const isLoading = fetchStatus === "fetching";
 
-  const onSignUpPress = () => {
-    
-  };
+  const onSignUpPress = () => {};
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-white h-full pb-[50%] pt-[30%]">
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
         className="bg-white"
         keyboardShouldPersistTaps="handled"
       >
@@ -68,37 +68,39 @@ export default function SignUpPage() {
             />
           </View>
 
-          <TextInput
-            className="flex-1 border border-gray-300 rounded-xl px-4 py-3 mb-4"
-            placeholder="Email Address"
-            placeholderTextColor={"#9CA3AF"}
-            autoCapitalize="none"
-            value={Email}
-            onChangeText={SetEmail}
-            keyboardType="email-address"
-          />
+          <View className="flex-col mb-4">
+            <TextInput
+              className="flex-1 border border-gray-300 rounded-xl px-4 py-3 mb-4"
+              placeholder="Email Address"
+              placeholderTextColor={"#9CA3AF"}
+              autoCapitalize="none"
+              value={Email}
+              onChangeText={SetEmail}
+              keyboardType="email-address"
+            />
 
-          {errors.fields.emailAddress && (
-            <Text className="text-red-500 mb-4">
-              {errors.fields.emailAddress.message}
-            </Text>
-          )}
+            {errors.fields.emailAddress && (
+              <Text className="text-red-500 mb-4">
+                {errors.fields.emailAddress.message}
+              </Text>
+            )}
 
-          <TextInput
-            className="flex-1 border border-gray-300 rounded-xl px-4 py-3 mb-4"
-            placeholder="Password"
-            placeholderTextColor={"#9CA3AF"}
-            autoCapitalize="none"
-            value={Password}
-            onChangeText={SetPassword}
-            secureTextEntry
-          />
+            <TextInput
+              className="flex-1 border border-gray-300 rounded-xl px-4 py-3 mb-4"
+              placeholder="Password"
+              placeholderTextColor={"#9CA3AF"}
+              autoCapitalize="none"
+              value={Password}
+              onChangeText={SetPassword}
+              secureTextEntry
+            />
 
-          {errors.fields.password && (
-            <Text className="text-red-500 mb-4">
-              {errors.fields.password.message}
-            </Text>
-          )}
+            {errors.fields.password && (
+              <Text className="text-red-500 mb-4">
+                {errors.fields.password.message}
+              </Text>
+            )}
+          </View>
 
           <TouchableOpacity
             disabled={isLoading}
@@ -114,7 +116,7 @@ export default function SignUpPage() {
 
           <View className="flex-row justify-center">
             <Text className="text-gray-500">Already have an account? </Text>
-            <Link href={"/Sign-in"}>
+            <Link href={"/sign-in"}>
               <Text className="text-blue-600 font-semibold">Sign In</Text>
             </Link>
           </View>
