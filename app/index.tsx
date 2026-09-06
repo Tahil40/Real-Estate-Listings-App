@@ -9,5 +9,5 @@ export default function ModalScreen() {
   // redirect user based on auth state....
   if (isSignedIn) return <Redirect href={"/(root)/(tabs)/index"} />;
 
-  return <Redirect href={"/sign-in"} />;
+  return <Redirect href={"/sign-up"} />;
 }
