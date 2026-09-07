@@ -1,6 +1,9 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
+import { useUserStore } from "../../../store/userStore";
 
 export default function TabLayout() {
+  const isAdmin = useUserStore((state) => state.isAdmin);
+
   return (
     <NativeTabs>
       {/* create Home button in Native tabs */}
@@ -13,6 +16,15 @@ export default function TabLayout() {
         <NativeTabs.Trigger.Icon sf="magnifyingglass" md="search" />
         <NativeTabs.Trigger.Label>Search</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
+
+      {/* create Add Property tab for Admin user */}
+      {isAdmin && (
+        <NativeTabs.Trigger name="create">
+          <NativeTabs.Trigger.Icon sf="plus.circle.fill" />
+          <NativeTabs.Trigger.Label>Add Property</NativeTabs.Trigger.Label>
+        </NativeTabs.Trigger>
+      )}
+
       {/* create Saved button in Native tabs */}
       <NativeTabs.Trigger name="saved">
         <NativeTabs.Trigger.Icon sf="heart.fill" md="save" />
@@ -26,4 +38,3 @@ export default function TabLayout() {
     </NativeTabs>
   );
 }
-    
