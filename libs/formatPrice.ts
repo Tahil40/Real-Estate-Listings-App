@@ -1,3 +1,4 @@
+// formatPrice() function takes parameter of type number and returns of type string after formatting....
 export const formatPrice = (value: number): string => {
   if (value >= 10000000) {
     const cr = (value / 10000000).toFixed(1).replace(/\.0$/, "");
